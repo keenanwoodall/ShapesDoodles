@@ -24,7 +24,7 @@ public class _1 : Sketch
 		{
 			float angleStep = angleLength / path.Count;
 			
-			y += speed * Time.deltaTime * 360f;
+			y -= speed * Time.deltaTime * 360f;
 			for (int i = 0; i < path.Count; i++)
 			{
 				var point = path[i];
@@ -34,7 +34,7 @@ public class _1 : Sketch
 
 				Vector3 p = Quaternion.Euler(x, y, 0f) * Vector3.forward * radius;
 				Vector3 n = Quaternion.Euler(x, y, 0f) * Vector3.up;
-				p += n * (t * Mathf.Sin(y * frequency) * magnitude);
+				p += n * (Mathf.Pow(t, 3f) * Mathf.Sin(y * frequency) * magnitude * Mathf.Abs(Mathf.Cos(x * Mathf.Deg2Rad)));
 				
 				point.thickness = width.Evaluate(t);
 				point.color = gradient.Evaluate(t);
@@ -46,11 +46,12 @@ public class _1 : Sketch
 
 		public void Render()
 		{
-			Draw.Polyline(path, PolylineJoins.Bevel);
+			Draw.Polyline(path, PolylineJoins.Simple);
 		}
 	}
 	
 	public int lineCount = 30;
+	public int loops = 1;
 	public int resolution = 30;
 	public float angleLength = 45f;
 	public float frequency = 10f;
@@ -68,20 +69,21 @@ public class _1 : Sketch
 		lines = new SphereLine[lineCount];
 		for (int i = 0; i < lines.Length; i++)
 		{
-			float t = i / (float)(lines.Length - 1);
-			lines[i] = new SphereLine(Mathf.LerpAngle(-60f, 60f, t), t * 360f, resolution);
+			float t = i / (float)(lines.Length);
+			lines[i] = new SphereLine(Mathf.LerpAngle(-80f, 80f, (t * (float)loops) % 1f), t * 360f - angleLength, resolution);
 		}
 	}
 
 	public override void Step()
 	{
 		for (int i = 0; i < lines.Length; i++)
-			lines[i].Step(speed, thicknessCurve, gradient, radius, angleLength, frequency, magnitude);
+			lines[i].Step(speed, thicknessCurve, gradient, radius, angleLength, frequency / 180, magnitude);
 	}
 
 	public override void Render()
 	{
 		Draw.BlendMode = ShapesBlendMode.Additive;
+		Draw.LineThicknessSpace = ThicknessSpace.Meters;
 		Draw.LineThickness = thickness;
 		for (int i = 0; i < lines.Length; i++)
 			lines[i].Render();
