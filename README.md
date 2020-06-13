@@ -6,3 +6,5 @@ Comes with a helpful `Sketch.cs` base component which you can inherit from to se
 
 After inheriting from the Sketch class, you can override the `Setup`, `Cleanup`, `Step` and `Render` functions to create your sketch.
 Plop your component on any object, and it will run while you have it selected in the inspector.'
+
+![0](https://i.imgur.com/be6Pj7H.gif)
