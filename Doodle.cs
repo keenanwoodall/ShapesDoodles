@@ -2,8 +2,8 @@
 #if UNITY_EDITOR
 using UnityEditor;
 
-[CustomEditor(typeof(Sketch), true)]
-public class SketchEditor : Editor
+[CustomEditor(typeof(Doodle), true)]
+public class DoodleEditor : Editor
 {
 	private void OnEnable()
 	{
@@ -27,7 +27,7 @@ public class SketchEditor : Editor
 		EditorGUILayout.Space();
 		if (GUILayout.Button("Restart", EditorStyles.miniButton))
 		{
-			if (target != null && target is Sketch sketch)
+			if (target != null && target is Doodle sketch)
 			{
 				sketch.Cleanup();
 				sketch.Setup();
@@ -38,7 +38,7 @@ public class SketchEditor : Editor
 #endif
 
 [ExecuteAlways]
-public abstract class Sketch : MonoBehaviour
+public abstract class Doodle : MonoBehaviour
 {
 	private void OnEnable()
 	{

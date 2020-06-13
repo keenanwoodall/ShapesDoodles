@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 2019399510}
   - component: {fileID: 2019399509}
   m_Layer: 0
-  m_Name: Sketch
+  m_Name: Doodle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

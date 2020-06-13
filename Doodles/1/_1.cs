@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Shapes;
 
-public class _1 : Sketch
+public class _1 : Doodle
 {
 	private class SphereLine
 	{
